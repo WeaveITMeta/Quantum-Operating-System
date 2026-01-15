@@ -461,17 +461,52 @@ fn main() {
 - [ ] Cost estimation for cloud provider execution
 - [ ] Comparison across available backends
 
-#### 3.11 Quantum Error Correction Primitives
-- [ ] Stabilizer code framework
+#### 3.11 Fault-Tolerant Readiness & Logical Qubit Support
+
+> **Goal**: Prepare the OS to manage logical qubits and fault-tolerant execution when hardware matures.
+
+**Capabilities**:
+- Logical qubit abstractions (physical → logical mapping)
+- Syndrome stream ingestion and processing
+- Decoder integration (surface code, etc.)
+- Logical error tracking and visualization
+- Separation of physical vs logical execution layers
+
+**Scientific Grounding**:
+- Quantum error correction theory (stabilizer formalism)
+- Decoder research (MWPM, Union-Find, neural decoders)
+- Hardware roadmaps toward million-qubit systems
+- Threshold theorem and fault-tolerant gate constructions
+
+**Deliverables**:
+- `LogicalQubit` abstraction layer
+- `SyndromeStream` real-time decoder interface
+- `DecoderBackend` trait for pluggable decoders
+- Logical error rate visualization in Eustress
+
+> 📌 **Outcome**: The OS becomes the *control plane* for fault-tolerant quantum computing.
+
+---
+
+**Implementation Tasks**:
+- [ ] Stabilizer code framework (Pauli group, stabilizer tableaux)
 - [ ] Bit-flip code [[3,1,1]] implementation
 - [ ] Phase-flip code implementation
 - [ ] Shor code [[9,1,3]] implementation
 - [ ] Steane code [[7,1,3]] implementation
-- [ ] Surface code primitives (for future fault-tolerance)
-- [ ] Syndrome extraction circuits
-- [ ] Logical qubit abstraction layer
-- [ ] Decoder interface for error correction
+- [ ] Surface code primitives (rotated surface code, planar codes)
+- [ ] Syndrome extraction circuits with ancilla management
+- [ ] `LogicalQubit` abstraction layer (physical-to-logical mapping)
+- [ ] `SyndromeStream` for real-time syndrome data ingestion
+- [ ] `DecoderBackend` trait for pluggable decoder implementations
+- [ ] Minimum Weight Perfect Matching (MWPM) decoder
+- [ ] Union-Find decoder for fast decoding
+- [ ] Neural decoder interface (for ML-based decoding)
+- [ ] Logical error rate tracking and statistics
 - [ ] Threshold estimation utilities
+- [ ] Fault-tolerant gate synthesis (T-gate magic state distillation)
+- [ ] Logical circuit compilation (logical → physical transpilation)
+- [ ] Real-time syndrome visualization in Eustress dashboard
 
 #### 3.12 Execution Provenance & Reproducibility
 - [ ] Circuit fingerprint (hash of compiled circuit)
