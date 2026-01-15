@@ -308,7 +308,32 @@ fn main() {
 
 ---
 
-### Phase 3: Quantum Hardware Abstraction 🔧 (Planned)
+### Phase 3: Hardware Abstraction & Calibration Intelligence 🔧 (Planned)
+
+> **Goal**: Bridge simulation and real quantum hardware using portable abstractions and calibration-aware execution.
+
+**Capabilities**:
+- Hardware backend interfaces (IBM, AWS, Azure, IonQ, Rigetti)
+- Device topology discovery (connectivity graphs)
+- Calibration ingestion (gate fidelity, T1/T2, readout error)
+- Noise model framework (depolarizing, damping, crosstalk)
+- Calibration-aware compilation and qubit selection
+
+**Scientific Grounding**:
+- QIR / OpenQASM 3 intermediate representations
+- CPTP noise channels (Kraus operators, Pauli-Lindblad)
+- Hardware calibration models (IBM BackendV2, Rigetti Quil-T)
+- Experimental quantum control literature
+
+**Deliverables**:
+- `HardwareDeviceInterface` — unified hardware abstraction
+- `CalibrationFetcher` — automatic calibration retrieval
+- `NoiseModel` — composable noise channel framework
+- Fidelity-aware transpiler passes
+
+> 📌 **Outcome**: The OS understands how good the hardware is *right now*—and adapts accordingly.
+
+---
 
 #### 3.1 Hardware Backend Interfaces
 - [ ] Define `HardwareDeviceInterface` extending `QuantumDeviceInterface`
