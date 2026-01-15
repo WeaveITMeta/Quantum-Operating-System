@@ -527,18 +527,21 @@ fn main() {
 
 ---
 
-### Phase 6: Eustress Visualization Platform 🎨 (Planned)
+### Phase 6: Eustress Visualization Platform (Planned)
 
 #### 6.1 Native Real-Time Dashboard (Bevy + egui)
-- [ ] Native Rust application using EustressEngine
+- [ ] Native Rust GUI application using Bevy game engine
 - [ ] egui immediate-mode UI for control panels and widgets
 - [ ] Redox OS native window integration via Orbital compositor
+- [ ] **WebTransport/UDP streaming** for real-time measurement data (~30-50% lower latency)
+- [ ] Datagram channel for high-frequency state updates (unreliable, low-latency)
+- [ ] Stream channel for critical results (reliable, ordered)
+- [ ] Direct IPC integration with quantum: scheme for local zero-copy data
 - [ ] Live Bloch sphere 3D rendering (Bevy 3D renderer)
 - [ ] Animated state evolution visualization with GPU acceleration
 - [ ] Interactive measurement histogram (egui plots)
 - [ ] Entanglement graph visualization (Bevy graph rendering)
 - [ ] Circuit diagram renderer (custom Bevy 2D sprites)
-- [ ] Direct IPC integration with quantum: scheme for zero-copy data
 - [ ] Multi-window support for complex quantum workflows
 
 #### 6.2 Semantic Analysis UI (egui panels)
