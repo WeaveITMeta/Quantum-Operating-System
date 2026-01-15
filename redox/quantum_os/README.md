@@ -608,7 +608,19 @@ fn main() {
 - [ ] Interpretive AI suggestions panel
 - [ ] Real-time statistics overlay on 3D visualizations
 
-#### 6.3 Developer Tools (Native Bevy UI)
+#### 6.3 Latent-Space Visualization
+- [ ] State vector dimensionality reduction (PCA, t-SNE, UMAP)
+- [ ] 2D/3D latent space projection of quantum states
+- [ ] Trajectory visualization through state space during circuit execution
+- [ ] Cluster detection for repeated measurement patterns
+- [ ] Variational parameter landscape visualization
+- [ ] Loss surface exploration for VQE/QAOA optimization
+- [ ] Barren plateau detection via gradient magnitude heatmaps
+- [ ] Entanglement structure embedding (reduced density matrix projections)
+- [ ] Interactive navigation through high-dimensional state manifolds
+- [ ] Animation of optimization trajectories in parameter space
+
+#### 6.4 Developer Tools (Native Bevy UI)
 - [ ] Quantum debugger with breakpoints (egui debug panel)
 - [ ] State inspection at arbitrary circuit points
 - [ ] Gate-by-gate execution stepping with visual feedback
@@ -618,7 +630,7 @@ fn main() {
 - [ ] Circuit editor with drag-and-drop gate placement
 - [ ] REPL console for interactive quantum commands
 
-#### 6.4 Redox OS Integration & Performance
+#### 6.5 Redox OS Integration & Performance
 - [ ] Orbital compositor integration for native windowing
 - [ ] Redox scheme-based IPC for quantum data streaming
 - [ ] Zero-copy shared memory buffers for visualization
@@ -628,7 +640,7 @@ fn main() {
 - [ ] Multi-monitor support for distributed quantum workflows
 - [ ] Low-latency input handling for interactive debugging
 
-#### 6.5 Collaboration Features (Network-based)
+#### 6.6 Collaboration Features (Network-based)
 - [ ] Shared quantum sessions via WebTransport
 - [ ] Real-time collaboration on circuits (CRDT-based)
 - [ ] Experiment versioning and history
