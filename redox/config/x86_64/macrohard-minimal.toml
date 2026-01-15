@@ -1,0 +1,8 @@
+# MACROHARD Minimal Configuration for x86_64
+# Bare-bones system for testing
+
+include = ["../macrohard-minimal.toml"]
+
+# x86_64 specific settings
+[general]
+filesystem_size = 256

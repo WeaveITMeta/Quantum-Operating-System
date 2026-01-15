@@ -1,0 +1,81 @@
+# =============================================================================
+# MACROHARD Quantum OS - Git Ignore
+# =============================================================================
+
+# Build artifacts
+target/
+**/target/
+
+# Cargo lock in subdirectories (keep root if present)
+**/Cargo.lock
+!/Cargo.lock
+
+# IDE and editor files
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Rust specific
+**/*.rs.bk
+*.pdb
+
+# Debug files
+*.dSYM/
+*.su
+*.idb
+
+# Benchmark results
+criterion/
+.criterion/
+
+# Coverage reports
+*.gcno
+*.gcda
+*.gcov
+tarpaulin-report.html
+lcov.info
+coverage/
+
+# Documentation build
+/doc/
+**/doc/
+
+# Environment and secrets
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+
+# OS generated files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Temporary files
+*.tmp
+*.temp
+*.log
+*.bak
+
+# Profiling
+perf.data
+perf.data.old
+flamegraph.svg
+callgrind.out.*
+
+# GPU shader cache
+*.spv
+shader_cache/
+
+# Test artifacts
+test_output/
+*.snap.new
+
+# Redox build artifacts
+redox/build/
+redox/prefix/
+redox/cookbook/target/
+redox/.config

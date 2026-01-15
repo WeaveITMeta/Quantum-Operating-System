@@ -1,0 +1,70 @@
+# =============================================================================
+# MACROHARD Quantum OS - Workspace Root
+# =============================================================================
+# Table of Contents:
+#   1. Workspace Configuration - Crate members and shared settings
+#   2. Workspace Dependencies - Shared dependencies across all crates
+#   3. Workspace Metadata - Project-level information
+# =============================================================================
+
+[workspace]
+resolver = "2"
+members = [
+    "crates/kernel_services",
+    "crates/quantum_runtime",
+    "crates/eustress_semantics",
+    "crates/ux_visualization",
+    "crates/quantum_device_abstraction",
+]
+
+# =============================================================================
+# Workspace Package Configuration
+# =============================================================================
+[workspace.package]
+version = "0.1.0"
+authors = ["MACROHARD Team"]
+edition = "2024"
+license = "MIT"
+repository = "https://github.com/macrohard-os/macrohard"
+rust-version = "1.83"
+
+# =============================================================================
+# Workspace Dependencies - Shared across all crates
+# =============================================================================
+[workspace.dependencies]
+# Core Quantum Library - LogosQ
+logosq = "0.2.4"
+
+# Async Runtime
+tokio = { version = "1", features = ["full"] }
+
+# Serialization
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+toml = "0.8"
+
+# Numerics
+num-complex = "0.4"
+ndarray = "0.16"
+
+# Error Handling
+thiserror = "2"
+anyhow = "1"
+
+# Logging
+tracing = "0.1"
+tracing-subscriber = "0.3"
+
+# Utilities
+uuid = { version = "1", features = ["v4", "serde"] }
+parking_lot = "0.12"
+crossbeam-channel = "0.5"
+
+# =============================================================================
+# Workspace Metadata
+# =============================================================================
+[workspace.metadata.quantum_os]
+description = "MACROHARD Quantum OS - Microkernel + Quantum Runtime"
+architecture = "hybrid_classical_quantum"
+kernel_model = "capability_based_microkernel"
+quantum_backend = "logosq"

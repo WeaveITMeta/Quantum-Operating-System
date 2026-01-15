@@ -1,0 +1,204 @@
+# =============================================================================
+# MACROHARD Quantum OS - Naming Glossary
+# =============================================================================
+# Table of Contents:
+#   1. Quantum Runtime Layer Mappings
+#   2. Kernel Services Layer Mappings  
+#   3. Eustress Semantics Layer Mappings
+#   4. Do-Not-Touch Patterns
+#   5. Renaming Application Order
+# =============================================================================
+# Purpose: Define snake_case full-word naming conventions to avoid confusion
+#          between classical OS concepts and quantum computing concepts.
+# =============================================================================
+
+[metadata]
+version = "1.0.0"
+description = "Quantum OS Naming Glossary - Full words snake_case for Rust"
+last_updated = "2026-01-15"
+
+# =============================================================================
+# 1. Quantum Runtime Layer Mappings
+# =============================================================================
+# LogosQ original -> MACROHARD Quantum OS snake_case naming
+# =============================================================================
+
+[quantum_runtime]
+# Core Structures
+"Circuit" = "quantum_circuit_structure"
+"Operation" = "gate_application_instance"
+"Gate" = "quantum_gate_interface"
+"State" = "quantum_state_vector"
+
+# State Representations
+"DenseState" = "full_state_vector_representation"
+"MpsState" = "matrix_product_state_representation"
+"MpsConfig" = "matrix_product_state_configuration"
+
+# Gate Operations
+"apply_dense" = "apply_to_full_state_vector"
+"apply_mps" = "apply_to_matrix_product_state"
+"apply" = "execute_gate_operation"
+
+# Parameterized Circuits
+"ParameterizedCircuit" = "parameterized_quantum_circuit"
+"Ansatz" = "variational_circuit_template"
+"build_circuit" = "construct_quantum_circuit"
+
+# Gradient Methods
+"ParameterShift" = "parameter_shift_gradient_method"
+"GradientMethod" = "gradient_computation_interface"
+
+# Observables
+"Observable" = "observable_operator_interface"
+"expectation" = "compute_expectation_value"
+
+# Gates (individual)
+"RXGate" = "rotation_x_gate"
+"RYGate" = "rotation_y_gate"
+"RZGate" = "rotation_z_gate"
+"CNOTGate" = "controlled_not_gate"
+"CPhaseGate" = "controlled_phase_gate"
+"HGate" = "hadamard_gate"
+"ToffoliGate" = "toffoli_gate"
+"SwapGate" = "swap_gate"
+
+# Noise Models
+"NoiseModel" = "noise_simulation_model"
+"Depolarizing" = "depolarizing_noise_channel"
+"AmplitudeDamping" = "amplitude_damping_channel"
+
+# Backends
+"QuantumStateBackend" = "quantum_state_backend_interface"
+"backend" = "state_backend"
+
+# =============================================================================
+# 2. Kernel Services Layer Mappings
+# =============================================================================
+# Redox OS concepts -> MACROHARD Quantum OS mappings
+# =============================================================================
+
+[kernel_services]
+# Resource Handles (Quantum Extensions)
+"Handle" = "resource_handle"
+"QuantumHandle" = "quantum_device_handle"
+"JobHandle" = "quantum_job_handle"
+"StreamHandle" = "measurement_stream_handle"
+"CalibrationHandle" = "calibration_profile_handle"
+
+# IPC Messages (Quantum Extensions)
+"Message" = "ipc_message"
+"CircuitMessage" = "circuit_program_message"
+"MeasurementRequest" = "measurement_request_message"
+"BasisSelection" = "basis_selection_update"
+"StatsSnapshot" = "statistics_snapshot_message"
+
+# Capabilities
+"Capability" = "access_capability"
+"QuantumCapability" = "quantum_access_permission"
+
+# Processes
+"Process" = "process_context"
+"Task" = "task_context"
+"QuantumTask" = "quantum_job_context"
+
+# =============================================================================
+# 3. Eustress Semantics Layer Mappings
+# =============================================================================
+# Semantic meaning layer for quantum observability
+# =============================================================================
+
+[eustress_semantics]
+# Core Meaning Packet
+"MeaningPacket" = "meaning_packet"
+"meaning_packet_fields" = ["observable_operator", "basis_frame", "statistics_window"]
+
+# Basis Operations
+"Basis" = "basis_frame"
+"BasisTransform" = "basis_transform_operation"
+"ComputationalBasis" = "computational_basis_frame"
+"PauliBasis" = "pauli_basis_frame"
+
+# Statistics
+"Statistics" = "statistics_window"
+"EntropyDelta" = "entropy_delta_measurement"
+"ProbabilityDistribution" = "probability_distribution_snapshot"
+
+# Operators
+"Operator" = "observable_operator"
+"PauliOperator" = "pauli_observable_operator"
+"HamiltonianOperator" = "hamiltonian_observable_operator"
+
+# Visualization Data
+"VisualizationData" = "visualization_data_packet"
+"BlochSphere" = "bloch_sphere_coordinates"
+"StateHistogram" = "state_histogram_data"
+
+# =============================================================================
+# 4. Do-Not-Touch Patterns
+# =============================================================================
+# Patterns that should NOT be renamed (external crates, codegen markers)
+# =============================================================================
+
+[do_not_touch]
+patterns = [
+    # External crate names
+    "logosq::",
+    "num_complex::",
+    "ndarray::",
+    "tokio::",
+    "serde::",
+    
+    # Rust standard library
+    "std::",
+    "core::",
+    "alloc::",
+    
+    # Codegen markers
+    "#[derive",
+    "#[cfg",
+    "#[allow",
+    "#[warn",
+    "#[test",
+    
+    # Trait implementations
+    "impl Send",
+    "impl Sync",
+    "impl Clone",
+    "impl Debug",
+    "impl Display",
+    
+    # Reserved keywords
+    "fn ",
+    "pub ",
+    "mod ",
+    "use ",
+    "struct ",
+    "enum ",
+    "trait ",
+    "impl ",
+]
+
+# =============================================================================
+# 5. Renaming Application Order
+# =============================================================================
+# Order in which renames should be applied (prevents half-renamed APIs)
+# =============================================================================
+
+[application_order]
+order = [
+    "modules_and_crates",      # Step 1: Rename module/crate names
+    "public_types",            # Step 2: Rename public struct/enum/trait names
+    "public_functions",        # Step 3: Rename public function names
+    "internal_fields",         # Step 4: Rename struct fields and local vars
+    "documentation",           # Step 5: Update docs (only after code is done)
+]
+
+# Post-rename validation commands
+[validation]
+commands = [
+    "cargo fmt",
+    "cargo clippy -- -D warnings",
+    "cargo test",
+    "cargo doc --no-deps",
+]

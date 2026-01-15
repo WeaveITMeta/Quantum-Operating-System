@@ -1,0 +1,270 @@
+# MACROHARD OS CI/CD Pipeline
+# Enhanced GitHub Actions workflow for building and testing
+
+name: MACROHARD CI
+
+on:
+  push:
+    branches: [main, develop, "release/*"]
+  pull_request:
+    branches: [main, develop]
+  workflow_dispatch:
+    inputs:
+      config:
+        description: 'Build configuration'
+        required: false
+        default: 'macrohard-desktop'
+        type: choice
+        options:
+          - macrohard-desktop
+          - macrohard-server
+          - macrohard-minimal
+          - desktop
+          - server
+          - minimal
+
+env:
+  CARGO_TERM_COLOR: always
+  RUST_BACKTRACE: 1
+
+jobs:
+  # ============================================================================
+  # Build Matrix
+  # ============================================================================
+  build:
+    name: Build (${{ matrix.arch }}, ${{ matrix.config }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        arch: [x86_64]
+        config: [macrohard-desktop, macrohard-server, macrohard-minimal]
+        include:
+          - arch: x86_64
+            target: x86_64-unknown-redox
+          # Future: ARM64 and RISC-V support
+          # - arch: aarch64
+          #   target: aarch64-unknown-redox
+          # - arch: riscv64gc
+          #   target: riscv64gc-unknown-redox
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            build-essential \
+            cmake \
+            curl \
+            file \
+            git \
+            gperf \
+            libfuse-dev \
+            libhtml-parser-perl \
+            libpng-dev \
+            libjpeg-dev \
+            meson \
+            nasm \
+            ninja-build \
+            pkg-config \
+            qemu-system-x86 \
+            qemu-utils \
+            syslinux-utils \
+            xdg-utils
+
+      - name: Install Rust toolchain
+        uses: dtolnay/rust-action@stable
+        with:
+          toolchain: nightly
+          components: rust-src, clippy, rustfmt
+
+      - name: Cache Cargo registry
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target
+          key: ${{ runner.os }}-cargo-${{ matrix.arch }}-${{ hashFiles('**/Cargo.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-cargo-${{ matrix.arch }}-
+
+      - name: Cache build artifacts
+        uses: actions/cache@v4
+        with:
+          path: |
+            build
+            prefix
+          key: ${{ runner.os }}-build-${{ matrix.arch }}-${{ matrix.config }}-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ matrix.arch }}-${{ matrix.config }}-
+
+      - name: Build MACROHARD OS
+        run: |
+          make all ARCH=${{ matrix.arch }} CONFIG_NAME=${{ matrix.config }} PODMAN_BUILD=0
+        timeout-minutes: 120
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: macrohard-${{ matrix.arch }}-${{ matrix.config }}
+          path: |
+            build/${{ matrix.arch }}/${{ matrix.config }}/harddrive.img
+          retention-days: 7
+
+  # ============================================================================
+  # Code Quality
+  # ============================================================================
+  lint:
+    name: Lint & Format
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Rust toolchain
+        uses: dtolnay/rust-action@stable
+        with:
+          toolchain: nightly
+          components: clippy, rustfmt
+
+      - name: Check formatting
+        run: cargo fmt --all -- --check
+
+      - name: Run Clippy
+        run: cargo clippy --all-targets --all-features -- -D warnings
+
+  # ============================================================================
+  # QEMU Tests
+  # ============================================================================
+  test-qemu:
+    name: QEMU Tests (${{ matrix.arch }})
+    runs-on: ubuntu-latest
+    needs: build
+    strategy:
+      matrix:
+        arch: [x86_64]
+        config: [macrohard-minimal]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install QEMU
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y qemu-system-x86
+
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: macrohard-${{ matrix.arch }}-${{ matrix.config }}
+          path: build/${{ matrix.arch }}/${{ matrix.config }}/
+
+      - name: Run QEMU boot test
+        run: |
+          timeout 120 qemu-system-x86_64 \
+            -machine q35 \
+            -m 2048 \
+            -smp 2 \
+            -drive file=build/${{ matrix.arch }}/${{ matrix.config }}/harddrive.img,format=raw \
+            -nographic \
+            -no-reboot \
+            -serial mon:stdio \
+            2>&1 | tee qemu-output.log &
+          QEMU_PID=$!
+          
+          # Wait for boot indicators or timeout
+          sleep 60
+          
+          # Check for successful boot indicators
+          if grep -q "macrohard\|redox\|login:" qemu-output.log; then
+            echo "Boot test PASSED"
+            kill $QEMU_PID 2>/dev/null || true
+            exit 0
+          else
+            echo "Boot test FAILED - no boot indicators found"
+            kill $QEMU_PID 2>/dev/null || true
+            exit 1
+          fi
+        timeout-minutes: 5
+
+  # ============================================================================
+  # Security Audit
+  # ============================================================================
+  security:
+    name: Security Audit
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Rust toolchain
+        uses: dtolnay/rust-action@stable
+
+      - name: Install cargo-audit
+        run: cargo install cargo-audit
+
+      - name: Run security audit
+        run: cargo audit
+        continue-on-error: true
+
+  # ============================================================================
+  # Documentation
+  # ============================================================================
+  docs:
+    name: Build Documentation
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Rust toolchain
+        uses: dtolnay/rust-action@stable
+        with:
+          toolchain: nightly
+
+      - name: Build documentation
+        run: cargo doc --no-deps --all-features
+
+      - name: Upload documentation
+        uses: actions/upload-artifact@v4
+        with:
+          name: documentation
+          path: target/doc
+          retention-days: 7
+
+  # ============================================================================
+  # Release
+  # ============================================================================
+  release:
+    name: Create Release
+    runs-on: ubuntu-latest
+    needs: [build, test-qemu]
+    if: startsWith(github.ref, 'refs/tags/v')
+    
+    steps:
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+
+      - name: Create release archives
+        run: |
+          cd artifacts
+          for dir in macrohard-*/; do
+            name=$(basename "$dir")
+            tar -czvf "${name}.tar.gz" "$dir"
+          done
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: artifacts/*.tar.gz
+          draft: true
+          generate_release_notes: true

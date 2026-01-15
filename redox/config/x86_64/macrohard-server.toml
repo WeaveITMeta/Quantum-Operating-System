@@ -1,0 +1,8 @@
+# MACROHARD Server Configuration for x86_64
+# Headless server variant
+
+include = ["../macrohard-server.toml"]
+
+# x86_64 specific settings
+[general]
+filesystem_size = 1024

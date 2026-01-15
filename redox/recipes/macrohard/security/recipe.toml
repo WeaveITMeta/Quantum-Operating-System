@@ -1,0 +1,29 @@
+# MACROHARD Security Daemon Recipe
+# Enhanced security services for MACROHARD OS
+
+[source]
+git = "https://github.com/macrohard-os/security.git"
+branch = "main"
+
+[build]
+template = "cargo"
+
+[package]
+name = "macrohard-security"
+version = "0.1.0"
+description = "MACROHARD OS security daemon with capability management and syscall filtering"
+authors = ["MACROHARD Team"]
+license = "MIT"
+
+dependencies = [
+    "kernel",
+    "relibc",
+]
+
+[build.cargo]
+features = ["syscall-filter", "capability-audit", "secure-boot"]
+
+[package.files]
+"/usr/bin/macrohard-security-daemon" = "target/release/macrohard-security-daemon"
+"/usr/bin/macrohard-audit" = "target/release/macrohard-audit"
+"/etc/macrohard/security.toml" = "config/security.toml"

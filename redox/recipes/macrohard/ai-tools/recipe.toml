@@ -1,0 +1,29 @@
+# MACROHARD AI Tools Recipe
+# AI-assisted development and testing utilities
+
+[source]
+git = "https://github.com/macrohard-os/ai-tools.git"
+branch = "main"
+
+[build]
+template = "cargo"
+
+[package]
+name = "macrohard-ai-tools"
+version = "0.1.0"
+description = "AI-assisted code scaffolding, fuzzing, and static analysis tools"
+authors = ["MACROHARD Team"]
+license = "MIT"
+
+dependencies = [
+    "relibc",
+]
+
+[build.cargo]
+features = ["code-scaffold", "fuzz-harness", "unsafe-audit", "static-analysis"]
+
+[package.files]
+"/usr/bin/macrohard-scaffold" = "target/release/macrohard-scaffold"
+"/usr/bin/macrohard-fuzz" = "target/release/macrohard-fuzz"
+"/usr/bin/macrohard-audit" = "target/release/macrohard-audit"
+"/usr/bin/macrohard-analyze" = "target/release/macrohard-analyze"

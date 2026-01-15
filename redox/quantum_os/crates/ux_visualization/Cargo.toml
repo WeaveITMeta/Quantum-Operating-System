@@ -1,0 +1,28 @@
+# =============================================================================
+# MACROHARD Quantum OS - UX Visualization Crate
+# =============================================================================
+# Table of Contents:
+#   1. Package Configuration
+#   2. Dependencies - Visualization and rendering
+# =============================================================================
+
+[package]
+name = "ux_visualization"
+version.workspace = true
+authors.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "3D/latent visualization fed by measurement streams"
+
+[dependencies]
+tokio.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+thiserror.workspace = true
+tracing.workspace = true
+uuid.workspace = true
+num-complex.workspace = true
+
+quantum_runtime = { path = "../quantum_runtime" }
+eustress_semantics = { path = "../eustress_semantics" }
+kernel_services = { path = "../kernel_services" }

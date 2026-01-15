@@ -1,0 +1,13 @@
+# MACROHARD Desktop Configuration for x86_64
+# Full-featured desktop environment with hypervisor support
+
+include = ["../macrohard-desktop.toml"]
+
+# x86_64 specific settings
+[general]
+# Filesystem size in MiB
+filesystem_size = 2048
+
+# x86_64 specific packages
+[packages]
+# Intel/AMD specific drivers will go here

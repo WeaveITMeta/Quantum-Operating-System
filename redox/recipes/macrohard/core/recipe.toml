@@ -1,0 +1,26 @@
+# MACROHARD Core Package
+# Essential MACROHARD-specific utilities and branding
+
+[source]
+# Will be replaced with actual repo when created
+git = "https://github.com/macrohard-os/core.git"
+branch = "main"
+
+[build]
+template = "cargo"
+
+[package]
+name = "macrohard-core"
+version = "0.1.0"
+description = "MACROHARD OS core utilities and branding"
+authors = ["MACROHARD Team"]
+license = "MIT"
+
+dependencies = [
+    "relibc",
+]
+
+[package.files]
+"/usr/bin/macrohard-info" = "target/release/macrohard-info"
+"/usr/share/macrohard/VERSION" = "VERSION"
+"/usr/share/macrohard/branding/logo.txt" = "assets/logo.txt"

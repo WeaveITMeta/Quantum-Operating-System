@@ -1,0 +1,35 @@
+# MACROHARD OS Build Configuration
+# Copy this file to .config and customize as needed
+
+# Target architecture (x86_64, aarch64, riscv64gc)
+ARCH=x86_64
+
+# Build configuration (macrohard-desktop, macrohard-server, macrohard-minimal)
+CONFIG_NAME=macrohard-desktop
+
+# Use Podman for containerized builds (recommended)
+PODMAN_BUILD=1
+
+# Use binary prefix (faster builds)
+PREFIX_BINARY=1
+
+# Use binary packages from repository (faster)
+REPO_BINARY=0
+
+# Enable debug symbols (larger images)
+REPO_DEBUG=0
+
+# Continue building even if some packages fail
+REPO_NONSTOP=0
+
+# Offline mode (no network access)
+REPO_OFFLINE=0
+
+# Enable sccache for faster rebuilds
+SCCACHE_BUILD=0
+
+# Filesystem tools in Podman container
+FSTOOLS_IN_PODMAN=0
+
+# Build without FUSE mounting
+FSTOOLS_NO_MOUNT=0

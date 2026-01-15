@@ -1,0 +1,28 @@
+# =============================================================================
+# MACROHARD Quantum OS - Quantum Device Abstraction Crate
+# =============================================================================
+# Table of Contents:
+#   1. Package Configuration
+#   2. Dependencies - Hardware abstraction layer
+# =============================================================================
+
+[package]
+name = "quantum_device_abstraction"
+version.workspace = true
+authors.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "Hardware abstraction for quantum devices and simulators"
+
+[dependencies]
+tokio.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+thiserror.workspace = true
+anyhow.workspace = true
+tracing.workspace = true
+uuid.workspace = true
+parking_lot.workspace = true
+
+quantum_runtime = { path = "../quantum_runtime" }
+kernel_services = { path = "../kernel_services" }

@@ -1,0 +1,27 @@
+# =============================================================================
+# MACROHARD Quantum OS - Eustress Semantics Crate
+# =============================================================================
+# Table of Contents:
+#   1. Package Configuration
+#   2. Dependencies - Semantic layer for quantum observability
+# =============================================================================
+
+[package]
+name = "eustress_semantics"
+version.workspace = true
+authors.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "Semantic meaning layer: operator+basis+statistics meaning packets"
+
+[dependencies]
+tokio.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+thiserror.workspace = true
+tracing.workspace = true
+uuid.workspace = true
+num-complex.workspace = true
+
+quantum_runtime = { path = "../quantum_runtime" }
+kernel_services = { path = "../kernel_services" }
