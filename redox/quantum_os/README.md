@@ -202,6 +202,34 @@ fn main() {
 
 ## Roadmap
 
+### Phases 1+2: Hybrid Quantum Runtime & Observability ✅ (Complete)
+
+> **Goal**: Create a stable, low-latency software substrate that treats quantum programs, measurements, and uncertainty as first-class system objects.
+
+**Capabilities**:
+- Typed circuit IR and state backends (Dense + MPS)
+- Measurement streaming (events, statistics, entropy)
+- Meaning abstraction: **Meaning = Operator + Basis + Statistics**
+- WebTransport-based data plane (streams + datagrams)
+- ECS-based visualization and semantic interpretation (Eustress)
+
+**Scientific Grounding**:
+- Quantum measurement theory (operators, basis, Born rule)
+- Variational algorithms (VQE-style observables)
+- Modern networking (QUIC, WebTransport)
+- Systems safety via Rust
+
+**Deliverables**:
+- `QuantumExecutionEngine` — async circuit execution
+- `MeasurementStream` — real-time measurement data
+- `MeaningPacket` — semantic container for quantum results
+- 3D + latent-space visualization (Phase 6)
+- Simulation-first, hardware-ready architecture
+
+> 📌 **Outcome**: A quantum-aware runtime that makes quantum behavior *observable*, *inspectable*, and *debuggable*.
+
+---
+
 ### Phase 1: Foundation ✅ (Complete)
 
 #### 1.1 Workspace Architecture
