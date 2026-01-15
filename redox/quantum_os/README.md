@@ -334,6 +334,9 @@ fn main() {
 - [ ] Readout error model
 - [ ] Crosstalk noise model for multi-qubit gates
 - [ ] Import noise models from hardware calibration data
+- [ ] Time-aware decoherence model (idle qubit decay)
+- [ ] Circuit duration estimation from gate timings
+- [ ] Decoherence-aware scheduling optimization
 
 #### 3.4 Calibration System
 - [ ] `CalibrationFetcher` for automatic calibration retrieval
@@ -358,6 +361,72 @@ fn main() {
 - [ ] Gate scheduling and timing optimization
 - [ ] Virtual-to-physical qubit mapping
 - [ ] Circuit optimization passes (gate cancellation, commutation)
+- [ ] Pulse-level IR (OpenPulse-compatible)
+- [ ] Pulse schedule representation
+- [ ] Drag pulse calibration support
+- [ ] Cross-resonance gate pulse templates
+
+#### 3.7 Quantum State Tomography
+- [ ] Full state tomography for small systems (≤6 qubits)
+- [ ] Compressed sensing tomography for larger systems
+- [ ] Process tomography for gate characterization
+- [ ] Randomized benchmarking for gate fidelity
+- [ ] Gate set tomography (GST) for complete error model
+- [ ] Shadow tomography for efficient observable estimation
+- [ ] Bell state fidelity measurement
+- [ ] CHSH inequality violation test
+- [ ] Entanglement witness implementation
+- [ ] Concurrence / negativity calculation from tomography
+
+#### 3.8 Dynamic Circuits & Classical Feedback
+- [ ] Mid-circuit measurement support in IR
+- [ ] Classical register operations (conditionals on measurement)
+- [ ] Feed-forward latency modeling
+- [ ] Reset operations (measure + conditional X)
+- [ ] Repeat-until-success loop primitives
+- [ ] Real-time classical computation integration
+- [ ] Conditional gate application based on measurement outcomes
+
+#### 3.9 Hamiltonian Simulation Primitives
+- [ ] Trotter-Suzuki decomposition (1st, 2nd, 4th order)
+- [ ] Pauli string exponentiation
+- [ ] Commutator-aware ordering optimization
+- [ ] Trotter error estimation and bounds
+- [ ] Time-evolution operator construction
+- [ ] Lie-Trotter product formula implementation
+- [ ] Hamiltonian term grouping for efficient simulation
+
+#### 3.10 Resource Estimation
+- [ ] Gate count by type (1Q, 2Q, measurement)
+- [ ] Circuit depth calculation (critical path)
+- [ ] Estimated execution time from calibration data
+- [ ] Expected fidelity estimation (product of gate fidelities)
+- [ ] Qubit connectivity requirements analysis
+- [ ] Memory/classical register requirements
+- [ ] Cost estimation for cloud provider execution
+- [ ] Comparison across available backends
+
+#### 3.11 Quantum Error Correction Primitives
+- [ ] Stabilizer code framework
+- [ ] Bit-flip code [[3,1,1]] implementation
+- [ ] Phase-flip code implementation
+- [ ] Shor code [[9,1,3]] implementation
+- [ ] Steane code [[7,1,3]] implementation
+- [ ] Surface code primitives (for future fault-tolerance)
+- [ ] Syndrome extraction circuits
+- [ ] Logical qubit abstraction layer
+- [ ] Decoder interface for error correction
+- [ ] Threshold estimation utilities
+
+#### 3.12 Execution Provenance & Reproducibility
+- [ ] Circuit fingerprint (hash of compiled circuit)
+- [ ] Calibration snapshot ID linkage
+- [ ] Hardware backend version tracking
+- [ ] Seed management for reproducible sampling
+- [ ] Full execution manifest export (JSON/CBOR)
+- [ ] Experiment metadata tagging
+- [ ] Result archival with full context
+- [ ] Diff tool for comparing execution runs
 
 ---
 
