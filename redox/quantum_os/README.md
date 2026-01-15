@@ -371,13 +371,43 @@ fn main() {
 - [ ] Automatic qubit selection based on fidelity
 - [ ] Calibration-aware circuit compilation
 
-#### 3.5 Error Mitigation
-- [ ] Zero-Noise Extrapolation (ZNE) implementation
-- [ ] Probabilistic Error Cancellation (PEC)
-- [ ] Readout error mitigation (confusion matrix inversion)
-- [ ] Dynamical decoupling pulse insertion
+#### 3.5 Error Mitigation & Adaptive Compilation
+
+> **Goal**: Extract meaningful results from noisy quantum hardware *before* fault tolerance.
+
+**Capabilities**:
+- Zero-Noise Extrapolation (ZNE)
+- Probabilistic Error Cancellation (PEC)
+- Readout error mitigation (confusion matrices, TREX)
+- Dynamical decoupling insertion
+- Automatic mitigation selection based on circuit depth + noise profile
+
+**Scientific Grounding**:
+- Temme–Bravyi–Gambetta (2017) — foundational ZNE + PEC
+- Modern PEC research (Nature Physics 2023)
+- Mitiq-style mitigation pipelines
+- Calibration-driven mitigation heuristics
+
+**Deliverables**:
+- `MitigationPipeline` — composable mitigation framework
+- `CircuitTransform` + `Estimator` traits
+- Real-time mitigation diagnostics in Eustress dashboard
+
+> 📌 **Outcome**: The system doesn't just run circuits—it actively *rescues signal from noise*.
+
+---
+
+**Implementation Tasks**:
+- [ ] Zero-Noise Extrapolation (ZNE) with Richardson extrapolation
+- [ ] Probabilistic Error Cancellation (PEC) with sparse Pauli-Lindblad models
+- [ ] Readout error mitigation (confusion matrix inversion, factorized local matrices)
+- [ ] Dynamical decoupling pulse insertion (XY4, CPMG sequences)
 - [ ] Twirled Readout Error eXtinction (TREX)
-- [ ] Mitigation method auto-selection based on circuit depth
+- [ ] Mitigation method auto-selection based on circuit depth + noise characterization
+- [ ] Noise amplification via gate folding (local, global)
+- [ ] Quasi-probability sampling for PEC
+- [ ] Mitigation cost estimation (sampling overhead)
+- [ ] Real-time mitigation metrics streaming to Eustress
 
 #### 3.6 Circuit Compilation
 - [ ] Transpiler framework with pass manager
